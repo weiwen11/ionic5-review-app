@@ -29,15 +29,16 @@ export class ReviewService {
   }
 
   createReview(review) {
-
     let headers = new HttpHeaders();
     headers.append('Content-Type', 'application/json');
 
-    this.http.post('http://localhost:8080/api/reviews', review, { headers: headers })
-      .subscribe(res => {
-        console.log(res);
-      });
-
+    return new Promise(resolve => {
+      this.http.post('http://localhost:8080/api/reviews', review, { headers: headers })
+        .subscribe(data => {
+          this.data = data;
+          resolve(data);
+        });
+    })
   }
 
   deleteReview(id) {

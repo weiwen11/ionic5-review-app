@@ -39,7 +39,9 @@ export class HomePage {
 
     if (data) {
       this.reviews.push(data);
-      this.reviewService.createReview(data);
+      this.reviewService.createReview(data).then(d => {
+        this.reviews = d;
+      })
     }
   }
 
@@ -51,7 +53,7 @@ export class HomePage {
     if (index > -1) {
       this.reviews.splice(index, 1);
     }
-
+    console.log(review);
     //Remove from database
     this.reviewService.deleteReview(review._id);
   }
